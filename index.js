@@ -22,7 +22,7 @@ app.get("/news", (req, res) => {
 //Collected news id wise
 app.get("/news/:id", (req, res) => {
   const id = req.params.id;
-  console.log(id);
+
   const selectedNews = news.find((n) => n._id === id);
   res.send(selectedNews);
 });
@@ -30,12 +30,12 @@ app.get("/news/:id", (req, res) => {
 ///Collected news categories wise
 app.get("/categories/:id", (req, res) => {
   const id = parseInt(req.params.id);
-  //console.log(id);
-  if (id == 0) {
+  if (id === 0) {
     res.send(news);
+  } else {
+    const categoryNews = news.filter((n) => parseInt(n.category_id) === id);
+    res.send(categoryNews);
   }
-  const categoryNews = news.filter((n) => n.category_id === id);
-  res.send(categoryNews);
 });
 
 app.listen(port, () => {
